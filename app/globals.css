@@ -1,0 +1,195 @@
+:root {
+    --white: #ffffff;
+    --black: #000000;
+
+    --yellow: #ffb423;
+    --light-yellow: #fff8df;
+
+    --gray: #d1d1d1;
+    --dark-gray: #909090;
+    --medium-gray: #999999;
+    --black-gray: #434343;
+
+    --drop-shadow: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.2));
+    --drop-shadow-light: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+html {
+    height: 100%;
+    width: 100vw;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.cursorCon {
+    position: fixed;
+    pointer-events: none;
+    background-size: cover;
+    mix-blend-mode: darken;
+    transform: translate(-50%, -50%);
+    z-index: 9999999999999;
+
+    mix-blend-mode: multiply;
+}
+
+.hoverBtn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content !important;
+    margin-inline: auto;
+
+    &>* {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.hoverBtn3 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+    margin-top: 2rem;
+
+    &>* {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.hoverBtn4 {
+    margin-top: 5rem;
+}
+
+.retweetBtn {
+    border: none;
+    text-transform: capitalize;
+    background: var(--yellow);
+    color: var(--black);
+}
+
+.verfyBtn {
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+    background: var(--yellow);
+    color: var(--black);
+
+    &:disabled {
+        background: gray;
+        color: white;
+    }
+}
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: -90deg;
+    inherits: false;
+}
+
+.hoverBtn::after {
+    content: "";
+    position: absolute;
+    border-radius: 1000px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    background: conic-gradient(from var(--gradient-angle),
+            #ffffff,
+            var(--yellow),
+            #ffffff);
+    border-radius: 1000px;
+    animation: rotation 5s linear infinite;
+}
+
+.hoverBtn3::after ,
+.hoverBtn5::after {
+    content: "";
+    position: absolute;
+    border-radius: 1000px;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    background: conic-gradient(from var(--gradient-angle),
+            #ffffff,
+            var(--gray),
+            #ffffff);
+    border-radius: 1000px;
+    animation: rotation 5s linear infinite;
+}
+
+.hoverBtn3::before ,
+.hoverBtn::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100% !important;
+    background: #ffe1a7;
+    border-radius: 100px;
+    transition: all 0.3s ease-in-out;
+}
+
+.hoverBtn5::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100% !important;
+    background: rgba(128, 128, 128, 0.5);
+    border-radius: 100px;
+    transition: all 0.3s ease-in-out;
+}
+
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+
+    100% {
+        --gradient-angle: 360deg;
+    }
+}
+
+.hoverBtn:hover::after {
+    scale: 1.025 1.15;
+}
+
+.hoverBtn:hover::before {
+    scale: 1.075 1.35;
+}
+
+.hoverBtn3:hover::after {
+    scale: 1.025 1.2;
+}
+
+.hoverBtn3:hover::before {
+    scale: 1.075 1.4;
+}
+
+.marginInline0 {
+    margin-inline: 0 !important;
+}
+
+.verfyBtnCon {
+    margin-top: 1.5rem;
+}
+

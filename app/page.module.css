@@ -1,0 +1,235 @@
+.main {
+    height: calc(100vh - 70px - 100px);
+    width: 100%;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0) 10%,
+            rgba(255, 255, 255, 1) 85%),
+        url("/extras/mainBg.png");
+    background-repeat: no-repeat;
+    background-size: 900px;
+    background-position: 50% 28vh;
+    padding-top: 5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &>h1 {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-size: 65px;
+        text-align: center;
+        line-height: 60px;
+        margin-top: 50px;
+
+        &>span {
+            font-weight: 900;
+            color: var(--yellow);
+        }
+    }
+
+    &>div {
+        font-size: 17px;
+        width: 640px;
+        margin-top: 1rem;
+        text-align: center;
+        color: var(--dark-gray);
+        font-weight: 600;
+
+        &>span {
+            font-weight: 800;
+        }
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        border: none;
+        background: var(--yellow);
+        width: 360px;
+        height: 53px;
+        border-radius: 1000px;
+        font-size: 18px;
+        font-weight: 600;
+
+        &>img {
+            width: 30px;
+            height: auto;
+        }
+    }
+}
+
+.JoinCon {
+    width: 100vw !important;
+    height: 100vh;
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    z-index: 100;
+
+    .Join {
+        background: var(--white);
+        border-radius: 20px;
+        padding-block: 5rem;
+        padding-inline: 8rem;
+        padding-block: 5rem;
+        filter: drop-shadow(0 0 1rem var(--dark-gray));
+        transform: translateY(-10%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: "Montserrat", sans-serif;
+
+        &>input {
+            margin-bottom: 42px;
+            height: 55px;
+            width: 440px;
+            text-align: center;
+            border-radius: 8px;
+            background: none;
+            font-size: 30px;
+            color: var(--dark-gray);
+            border: 2px solid var(--yellow) !important;
+
+            &:focus,
+            &:hover,
+            &:active {
+                border: 3px solid var(--yellow) !important;
+            }
+        }
+
+        &>label {
+            align-self: flex-start;
+            color: var(--yellow);
+            margin-bottom: 1rem;
+        }
+
+        &>p {
+            color: var(--black);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        &>h1 {
+            color: var(--black);
+            margin-bottom: 0.5rem;
+            font-size: 3rem;
+            line-height: 3rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .main {
+        background-repeat: no-repeat;
+        background-size: 650px;
+        background-position: 50% 37vh;
+
+        &>h1 {
+            margin-top: 8rem;
+            font-size: 55px;
+
+            &>span {}
+        }
+
+        &>div {
+            font-size: 16px;
+
+            &>span {}
+        }
+
+        .button {
+            width: 350px;
+
+            &>img {}
+        }
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .main {
+        background-repeat: no-repeat;
+        background-size: 600px;
+        background-position: 50% 39vh;
+
+        &>h1 {
+            margin-top: 8rem;
+            font-size: 45px;
+
+            &>span {}
+        }
+
+        &>div {
+            font-size: 14px;
+
+            &>span {}
+        }
+
+        .button {
+            width: 320px;
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .main {
+        background: linear-gradient(180deg,
+                rgba(0, 0, 0, 0) 10%,
+                rgba(255, 255, 255, 1) 45%),
+            url("/extras/mobBg.png");
+        height: calc(100vh - 170px - 100px);
+        background-repeat: no-repeat;
+        background-size: 70vw;
+        background-position: 50% 39vh;
+
+        .br {
+            display: none;
+        }
+
+        &>h1 {
+            margin-top: 3rem;
+            font-size: 37px;
+            max-width: 100vw;
+            line-height: 38px;
+            text-wrap: pretty;
+
+            &>span {}
+        }
+
+        &>div {
+            font-size: 12px;
+            max-width: 90vw;
+
+            &>span {}
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            border: none;
+            background: var(--yellow);
+            width: 250px;
+            height: 44px;
+            border-radius: 1000px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 1rem;
+            /*cursor: pointer;*/
+
+            &>img {
+                width: 30px;
+                height: auto;
+            }
+        }
+    }
+}
