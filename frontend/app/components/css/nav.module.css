@@ -41,7 +41,7 @@
                 border-bottom: 1px solid var(--white);
 
                 &:hover {
-                    color: var(--yellow);
+                    color: var(--blue);
                     /*border-bottom: 1px solid var(--yellow);*/
                 }
             }
