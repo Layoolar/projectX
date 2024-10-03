@@ -25,7 +25,7 @@
 
         &>span {
             font-weight: 900;
-            color: var(--yellow);
+            color: var(--blue);
         }
     }
 
@@ -48,7 +48,7 @@
         justify-content: center;
         gap: 1rem;
         border: none;
-        background: var(--yellow);
+        background: var(--blue);
         width: 360px;
         height: 53px;
         border-radius: 1000px;
@@ -217,7 +217,7 @@
             justify-content: center;
             gap: 1rem;
             border: none;
-            background: var(--yellow);
+            background: #3AA4D9; /*background: var(--yellow);*/
             width: 250px;
             height: 44px;
             border-radius: 1000px;
