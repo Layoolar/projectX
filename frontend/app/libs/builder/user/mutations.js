@@ -18,7 +18,10 @@ export function useGetAuthUrl() {
                 window.location.href = data?.data?.url;
             }
         },
-        onError: handleError,
+        onError: (error) => {
+	    console.error("Error occurred in useGetAuthUrl: ", error);
+	    handleError(error);
+	},
     });
 }
 
