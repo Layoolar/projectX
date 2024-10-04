@@ -1,15 +1,15 @@
 import { createBuilder } from "@ibnlanre/portal";
-import { ENDPOINTS } from "../endpoints";
+import { ENDPOINTS, BASE_URL } from "../endpoints";
 import { _axios } from "../axios";
 import { getCookie } from "cookies-next";
 import { COOKIES } from "../constants";
 
 export const auth_request_builder = createBuilder({
-  get_url: () => _axios.get(ENDPOINTS.auth.get_url()),
+  get_url: () => _axios.get(`${BASE_URL}${ENDPOINTS.auth.get_url()}`),
   send_auth_params: ({ code, state, referralCode }) => {
     const token = getCookie(COOKIES.auth_Temp);
     return _axios.get(
-      ENDPOINTS.auth.get_params({ code, state, referralCode }),
+      `${BASE_URL}${ENDPOINTS.auth.get_params({ code, state, referralCode })}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
