@@ -74,7 +74,13 @@ export default function Home() {
             </div>
 
             <div className="hoverBtn">
-                <button className={styles.button} onMouseDown={getAuthUrl}>
+                <button
+	        className={styles.button} 
+	        onMouseDown={() =>{
+		    console.log("Button clicked, calling getAuthUrl");
+		    getAuthUrl();
+		}}
+		>
                     Connect
                     <img src='/icons/x.png' alt='x' />
                     {isPending || mutatingAuthUrl ? <Loader color='white' /> : null}
