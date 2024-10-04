@@ -23,11 +23,10 @@ export default function Page() {
         </h1>
         <div className={styles.dataCon}>
           <ProfileCon />
-          <LeadersBoard />
           <Referal />
         </div>
       </div>
-
+      <LeadersBoard />
       <div className={tStyles.bottom}>
         <h2>Quests</h2>
         <Tasks />
@@ -105,7 +104,7 @@ const Task = ({ task }) => {
           </div>
           <div className={tStyles.taskBottom}>
             <h3>{task?.description}</h3>
-            <div className='hoverBtn marginInline0'>
+            <div className="hoverBtn marginInline0">
               {isCommentTask ? (
                 <button
                   onMouseDown={openModal}
@@ -136,27 +135,27 @@ const EmptyQuest = () => {
   );
 };
 
-
-
 const LeadersBoard = () => {
   const { data, status, isError } = useGetLeaderboard();
   const { data: profile, status: profile_status } = useGetProfileInformation();
-
   //console.log("this is the data", data?.data?.data?.slice(0, 10))
   //{data?.data?.data?.slice(0, 10).map((leader, index) => (
-
   return (
     <div className={styles.leadersBoard}>
       <div className={styles.header}>
-        <img src='/icons/thunder.png' alt='profile' />
+        {/* <img src="/icons/thunder.png" alt="profile" /> */}
         <h1>Leaderboard # top 10</h1>
       </div>
-      <div className={styles.tittle}>
-        <h2> Rank </h2>
-        <h2> Player Handle </h2>
-        <h2> Points </h2>
+      <div>
+        <p>You earned 50 gift today out of 43245 users</p>
       </div>
-      <h4>You</h4>
+      <div className={styles.tittle}>
+        <p> Place </p>
+        <p> Username </p>
+        <p> Points </p>
+        <p> Price </p>
+      </div>
+      {/* <h4>You</h4> */}
       <Skeleton visible={profile_status !== "success"}>
         <LeaderBoardData
           user={profile?.data?.data?.twitter?.username}
@@ -165,8 +164,8 @@ const LeadersBoard = () => {
           points={profile?.data?.data?.totalTokens}
         />
       </Skeleton>
-      <h4>Top 10</h4>
-      <Skeleton visible={status !== "success"}>
+      {/* <h4>Top 10</h4> */}
+      {/* <Skeleton visible={status !== "success"}>
         <div className={styles.leadersDataCon}>
           {data?.data?.data?.slice(0, 10).map((leader, index) => (
             <LeaderBoardData
@@ -177,11 +176,10 @@ const LeadersBoard = () => {
             />
           ))}
         </div>
-      </Skeleton>
+      </Skeleton> */}
     </div>
   );
 };
-
 
 const LeaderBoardData = (props) => {
   const rank =
@@ -193,8 +191,9 @@ const LeaderBoardData = (props) => {
 
   return (
     <div
-      className={`${styles.leadersData} ${props.user !== undefined && styles.boldUser
-        }`}
+      className={`${styles.leadersData} ${
+        props.user !== undefined && styles.boldUser
+      }`}
     >
       <h3>{rank}</h3>
       <h3>@{props.playerHandle}</h3>
@@ -211,11 +210,11 @@ const ProfileCon = () => {
         src={
           data?.data?.data?.twitter?.profile_image_url ?? "/temp/tempUser.png"
         }
-        alt='profile'
+        alt="profile"
       />
       <div>
         <div>
-          <img className={styles.xIcon} src='/icons/x.png' alt='profile' />
+          <img className={styles.xIcon} src="/icons/x.png" alt="profile" />
           <Skeleton visible={status !== "success"}>
             <div>
               <span className={styles.userName}>
@@ -229,7 +228,7 @@ const ProfileCon = () => {
           </Skeleton>
         </div>
         <div>
-          <img src='/icons/trophy.png' alt='profile' />
+          <img src="/icons/trophy.png" alt="profile" />
           <Skeleton visible={status !== "success"}>
             <p>
               <span>{data?.data?.data?.rewardTokens?.unclaimed}</span> points
@@ -238,7 +237,7 @@ const ProfileCon = () => {
         </div>
 
         <div>
-          <img src='/icons/rank.png' alt='profile' />
+          <img src="/icons/rank.png" alt="profile" />
           <Skeleton visible={status !== "success"}>
             <p>
               <span>{userRank()}</span> rank
@@ -256,7 +255,7 @@ const Referal = () => {
   return (
     <div className={styles.referal}>
       <h2>
-        <img src='/icons/friend.png' alt='profile' />
+        <img src="/icons/friend.png" alt="profile" />
         referrals
       </h2>
       <h4>Invite Friends, Get Rewards</h4>
@@ -271,30 +270,30 @@ const Referal = () => {
               <Tooltip
                 label={copied ? "Copied" : "Copy"}
                 withArrow
-                position='right'
+                position="right"
               >
                 <ActionIcon
                   color={copied ? "teal" : "gray"}
-                  variant='subtle'
+                  variant="subtle"
                   onClick={copy}
                 >
                   <img
                     className={styles.copyIcon}
-                    src='/icons/copy.svg'
-                    alt='profile'
+                    src="/icons/copy.svg"
+                    alt="profile"
                   />
                 </ActionIcon>
               </Tooltip>
             )}
           </CopyButton>
         </Skeleton>
+        <div className="">
+          <h3>
+            Invite Number:
+            {data?.data?.data?.referredUsers}
+          </h3>
+        </div>
       </section>
-      <div className=''>
-        <h3>
-          Invite Number:
-          {data?.data?.data?.referredUsers}
-        </h3>
-      </div>
     </div>
   );
 };
@@ -305,217 +304,225 @@ const userRank = () => {
   return UserRank?.data?.data?.rank ?? 0;
 };
 
-
-const fakeData =
-  [
-    {
-      "id": "2181775022",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 176397.5200000004,
-        "referralPoints": 174397.5200000004
-      },
-      "twitter": {
-        "id": "2181775022",
-        "username": "VjRusmayana404",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1547528104645922817/yRa4ri7w.jpg"
-      },
-      "createdAt": 1725555956259,
-      "updatedAt": 1725555956259,
-      "referredBy": "1615041590338408448",
-      "referredUsers": 1181,
-      "referralCode": "J9B7AS6R87",
-      "totalTokens": 176397.5200000004,
-      "rank": 1
+const fakeData = [
+  {
+    id: "2181775022",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 176397.5200000004,
+      referralPoints: 174397.5200000004,
     },
-    {
-      "id": "1000843782315655168",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 56548.39999999992,
-        "referralPoints": 54548.39999999992
-      },
-      "twitter": {
-        "id": "1000843782315655168",
-        "username": "TeamAirdrops",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1000844893000945664/IW2Na27r.jpg"
-      },
-      "createdAt": 1725628568955,
-      "updatedAt": 1725628568955,
-      "referredBy": "1178626454206242816",
-      "referredUsers": 323,
-      "referralCode": "N9WXKAG7E7",
-      "totalTokens": 56548.39999999992,
-      "rank": 2
+    twitter: {
+      id: "2181775022",
+      username: "VjRusmayana404",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1547528104645922817/yRa4ri7w.jpg",
     },
-    {
-      "id": "1555212000",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 32760,
-        "referralPoints": 30160
-      },
-      "twitter": {
-        "id": "1555212000",
-        "username": "agayialapusing",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1828823546706964480/K6qYT59L.jpg"
-      },
-      "createdAt": 1725931345987,
-      "updatedAt": 1725931345987,
-      "referredBy": "1000843782315655168",
-      "referredUsers": 145,
-      "referralCode": "A2PT6QB561",
-      "totalTokens": 32760,
-      "rank": 3
+    createdAt: 1725555956259,
+    updatedAt: 1725555956259,
+    referredBy: "1615041590338408448",
+    referredUsers: 1181,
+    referralCode: "J9B7AS6R87",
+    totalTokens: 176397.5200000004,
+    rank: 1,
+  },
+  {
+    id: "1000843782315655168",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 56548.39999999992,
+      referralPoints: 54548.39999999992,
     },
-    {
-      "id": "1683816645880586240",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 29007.999999999825,
-        "referralPoints": 26407.999999999825
-      },
-      "twitter": {
-        "id": "1683816645880586240",
-        "username": "ChaobingD32282",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1683816878828044289/z5t2NPyh.png"
-      },
-      "createdAt": 1726024328917,
-      "updatedAt": 1726024328917,
-      "referredBy": "1000843782315655168",
-      "referredUsers": 101,
-      "referralCode": "ZW3ULFHTF1",
-      "totalTokens": 29007.999999999825,
-      "rank": 4
+    twitter: {
+      id: "1000843782315655168",
+      username: "TeamAirdrops",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1000844893000945664/IW2Na27r.jpg",
     },
-    {
-      "id": "1675472818576961536",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 28191.439999999988,
-        "referralPoints": 28191.439999999988
-      },
-      "twitter": {
-        "id": "1675472818576961536",
-        "username": "0xFree20",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1772987992623497216/1BC4BU76.jpg"
-      },
-      "createdAt": 1725546586297,
-      "updatedAt": 1725546586297,
-      "referredBy": "1391197908410662912",
-      "referredUsers": 229,
-      "referralCode": "YDUQ2KRF2A",
-      "totalTokens": 28191.439999999988,
-      "rank": 5
+    createdAt: 1725628568955,
+    updatedAt: 1725628568955,
+    referredBy: "1178626454206242816",
+    referredUsers: 323,
+    referralCode: "N9WXKAG7E7",
+    totalTokens: 56548.39999999992,
+    rank: 2,
+  },
+  {
+    id: "1555212000",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 32760,
+      referralPoints: 30160,
     },
-    {
-      "id": "1597982020453298176",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 28073.479999999967,
-        "referralPoints": 24774.479999999967
-      },
-      "twitter": {
-        "id": "1597982020453298176",
-        "username": "arifsnt1",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1618929177549479938/ZfVaQSRJ.jpg"
-      },
-      "createdAt": 1725553680660,
-      "updatedAt": 1725553680660,
-      "referredBy": null,
-      "referredUsers": 114,
-      "referralCode": "LZTQPMGA18",
-      "totalTokens": 28073.479999999967,
-      "rank": 6
+    twitter: {
+      id: "1555212000",
+      username: "agayialapusing",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1828823546706964480/K6qYT59L.jpg",
     },
-    {
-      "id": "1748248939432964097",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 25872,
-        "referralPoints": 23872
-      },
-      "twitter": {
-        "id": "1748248939432964097",
-        "username": "ESakayanagi",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1748249887823826944/rCABtxcq.jpg"
-      },
-      "createdAt": 1725713834961,
-      "updatedAt": 1725713834961,
-      "referredBy": "870027769219960832",
-      "referredUsers": 124,
-      "referralCode": "95RGTZ9217",
-      "totalTokens": 25872,
-      "rank": 7
+    createdAt: 1725931345987,
+    updatedAt: 1725931345987,
+    referredBy: "1000843782315655168",
+    referredUsers: 145,
+    referralCode: "A2PT6QB561",
+    totalTokens: 32760,
+    rank: 3,
+  },
+  {
+    id: "1683816645880586240",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 29007.999999999825,
+      referralPoints: 26407.999999999825,
     },
-    {
-      "id": "870027769219960832",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 23127.359999999986,
-        "referralPoints": 20527.359999999986
-      },
-      "twitter": {
-        "id": "870027769219960832",
-        "username": "6yt39m9nvsb9",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/870028123630325760/CGAdclPu.jpg"
-      },
-      "createdAt": 1725552927455,
-      "updatedAt": 1725552927455,
-      "referredBy": "1436022370804768787",
-      "referredUsers": 153,
-      "referralCode": "ERCU44HXA3",
-      "totalTokens": 23127.359999999986,
-      "rank": 8
+    twitter: {
+      id: "1683816645880586240",
+      username: "ChaobingD32282",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1683816878828044289/z5t2NPyh.png",
     },
-    {
-      "id": "1725327311447228416",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 21320,
-        "referralPoints": 18720
-      },
-      "twitter": {
-        "id": "1725327311447228416",
-        "username": "1069913798Liu",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1725327525650317312/Q1SCBpOA.jpg"
-      },
-      "createdAt": 1725991216493,
-      "updatedAt": 1725991216493,
-      "referredBy": "1000843782315655168",
-      "referredUsers": 90,
-      "referralCode": "NVAEP6DT30",
-      "totalTokens": 21320,
-      "rank": 9
+    createdAt: 1726024328917,
+    updatedAt: 1726024328917,
+    referredBy: "1000843782315655168",
+    referredUsers: 101,
+    referralCode: "ZW3ULFHTF1",
+    totalTokens: 29007.999999999825,
+    rank: 4,
+  },
+  {
+    id: "1675472818576961536",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 28191.439999999988,
+      referralPoints: 28191.439999999988,
     },
-    {
-      "id": "1454885518991233024",
-      "permission": "user",
-      "rewardTokens": {
-        "claimed": 0,
-        "unclaimed": 18000,
-        "referralPoints": 16000
-      },
-      "twitter": {
-        "id": "1454885518991233024",
-        "username": "phamquocanhhhh",
-        "profile_image_url": "https://pbs.twimg.com/profile_images/1466064769664761861/O6VhDay9.jpg"
-      },
-      "createdAt": 1725592307484,
-      "updatedAt": 1725592307484,
-      "referredBy": "894434596078575617",
-      "referredUsers": 100,
-      "referralCode": "TJ356UCF1E",
-      "totalTokens": 18000,
-      "rank": 10
-    }
-  ]
+    twitter: {
+      id: "1675472818576961536",
+      username: "0xFree20",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1772987992623497216/1BC4BU76.jpg",
+    },
+    createdAt: 1725546586297,
+    updatedAt: 1725546586297,
+    referredBy: "1391197908410662912",
+    referredUsers: 229,
+    referralCode: "YDUQ2KRF2A",
+    totalTokens: 28191.439999999988,
+    rank: 5,
+  },
+  {
+    id: "1597982020453298176",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 28073.479999999967,
+      referralPoints: 24774.479999999967,
+    },
+    twitter: {
+      id: "1597982020453298176",
+      username: "arifsnt1",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1618929177549479938/ZfVaQSRJ.jpg",
+    },
+    createdAt: 1725553680660,
+    updatedAt: 1725553680660,
+    referredBy: null,
+    referredUsers: 114,
+    referralCode: "LZTQPMGA18",
+    totalTokens: 28073.479999999967,
+    rank: 6,
+  },
+  {
+    id: "1748248939432964097",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 25872,
+      referralPoints: 23872,
+    },
+    twitter: {
+      id: "1748248939432964097",
+      username: "ESakayanagi",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1748249887823826944/rCABtxcq.jpg",
+    },
+    createdAt: 1725713834961,
+    updatedAt: 1725713834961,
+    referredBy: "870027769219960832",
+    referredUsers: 124,
+    referralCode: "95RGTZ9217",
+    totalTokens: 25872,
+    rank: 7,
+  },
+  {
+    id: "870027769219960832",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 23127.359999999986,
+      referralPoints: 20527.359999999986,
+    },
+    twitter: {
+      id: "870027769219960832",
+      username: "6yt39m9nvsb9",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/870028123630325760/CGAdclPu.jpg",
+    },
+    createdAt: 1725552927455,
+    updatedAt: 1725552927455,
+    referredBy: "1436022370804768787",
+    referredUsers: 153,
+    referralCode: "ERCU44HXA3",
+    totalTokens: 23127.359999999986,
+    rank: 8,
+  },
+  {
+    id: "1725327311447228416",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 21320,
+      referralPoints: 18720,
+    },
+    twitter: {
+      id: "1725327311447228416",
+      username: "1069913798Liu",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1725327525650317312/Q1SCBpOA.jpg",
+    },
+    createdAt: 1725991216493,
+    updatedAt: 1725991216493,
+    referredBy: "1000843782315655168",
+    referredUsers: 90,
+    referralCode: "NVAEP6DT30",
+    totalTokens: 21320,
+    rank: 9,
+  },
+  {
+    id: "1454885518991233024",
+    permission: "user",
+    rewardTokens: {
+      claimed: 0,
+      unclaimed: 18000,
+      referralPoints: 16000,
+    },
+    twitter: {
+      id: "1454885518991233024",
+      username: "phamquocanhhhh",
+      profile_image_url:
+        "https://pbs.twimg.com/profile_images/1466064769664761861/O6VhDay9.jpg",
+    },
+    createdAt: 1725592307484,
+    updatedAt: 1725592307484,
+    referredBy: "894434596078575617",
+    referredUsers: 100,
+    referralCode: "TJ356UCF1E",
+    totalTokens: 18000,
+    rank: 10,
+  },
+];

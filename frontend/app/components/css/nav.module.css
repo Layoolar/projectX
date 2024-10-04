@@ -1,115 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
 .placeHolder {
-    width: 110px;
+  width: 110px;
 }
 
 .nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid var(--gray);
+  position: relative;
+  z-index: 10000;
+
+  & > * {
+    max-width: 1728px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--gray);
+    padding-inline: 64px;
+    padding-block: 16px;
     position: relative;
     z-index: 10000;
 
-    &>* {
-        max-width: 1728px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-inline: 64px;
-        padding-block: 16px;
-        position: relative;
-        z-index: 10000;
-
-        &>div {
-            display: flex;
-            align-items: center;
-        }
-
-        .left>img {
-            width: auto;
-            height: 36px;
-        }
-
-        .center {
-            gap: 86px;
-
-            &>* {
-                color: var(--black);
-                text-decoration: none;
-                border-bottom: 1px solid var(--white);
-
-                &:hover {
-                    color: var(--blue);
-                    /*border-bottom: 1px solid var(--yellow);*/
-                }
-            }
-        }
-
-        .right {
-            &>a {
-                color: var(--black);
-                font-weight: 700;
-                letter-spacing: 1px;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-
-                &>img {
-                    width: 23px;
-                    height: auto;
-                }
-            }
-        }
-
-        .iconsCon {
-            border: none;
-            display: none;
-            background: none;
-
-            .icons {
-                position: relative;
-
-                .hamicon,
-                .hamicon2 {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                }
-
-                .hamicon2 {
-                    height: 23px;
-                    width: auto;
-                }
-
-                .placeHolder {
-                    position: block !important;
-                    opacity: 0;
-                }
-            }
-        }
+    & > div {
+      display: flex;
+      align-items: center;
     }
+
+    /* .left > img {
+      width: auto;
+      height: 36px;
+    } */
+
+    .left {
+      font-family: "Raleway", sans-serif;
+      font-size: 32px;
+      text-decoration: none;
+      color: #3aa4d9;
+      font-weight: 700;
+    }
+
+    .center {
+      gap: 86px;
+
+      & > * {
+        color: var(--black);
+        text-decoration: none;
+        border-bottom: 1px solid var(--white);
+
+        &:hover {
+          color: var(--blue);
+          /*border-bottom: 1px solid var(--yellow);*/
+        }
+      }
+    }
+
+    .right {
+      & > a {
+        color: var(--black);
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        & > img {
+          width: 23px;
+          height: auto;
+        }
+      }
+    }
+
+    .iconsCon {
+      border: none;
+      display: none;
+      background: none;
+
+      .icons {
+        position: relative;
+
+        .hamicon,
+        .hamicon2 {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        .hamicon2 {
+          height: 23px;
+          width: auto;
+        }
+
+        .placeHolder {
+          position: block !important;
+          opacity: 0;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 850px) {
-    .nav {
-        &>* {
-            padding-inline: 32px;
-            /*padding-block: 8px;*/
+  .nav {
+    & > * {
+      padding-inline: 32px;
+      /*padding-block: 8px;*/
 
-            .center {
-                display: none;
-            }
+      .center {
+        display: none;
+      }
 
-            .right {
-                display: none;
-            }
+      .right {
+        display: none;
+      }
 
-            .iconsCon {
-                display: block;
-            }
-        }
+      .iconsCon {
+        display: block;
+      }
     }
+  }
+}
+
+.raleway-100 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+.raleway-200 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+.raleway-300 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+.raleway-400 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.raleway-500 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+.raleway-600 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.raleway-700 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+.raleway-800 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.raleway-900 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
 }
