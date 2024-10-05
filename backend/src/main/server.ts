@@ -22,6 +22,7 @@ import { db } from '@infrastructure/database';
 import helmet from 'helmet';
 import referralRouter from '@api/routes/ReferralRouter';
 import spinRouter from '@api/routes/SpinRouter';
+import { scheduleTaskProcessing } from '@infrastructure/Scheduler/TaskCronJob';
 
 // Initializing express app instance
 const app = express();
@@ -49,6 +50,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '10kb' }));
 //app.use(session(sessionOptions));
 app.use(requestLogger);
+
+scheduleTaskProcessing();
 
 const port = CONFIG.PORT || 3000;
 
