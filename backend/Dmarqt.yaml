@@ -1,0 +1,640 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Dmarqt
+  summary: API documentation for DMarqt
+  description: Backend API for Twitter Tasks Verification
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/task/{id}':
+    get:
+      tags:
+        - Task
+      summary: Get Task By ID
+      description: Get Task by its respective IDs
+      operationId: get-task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/soap+xml:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      data:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                          description:
+                            type: string
+                          url:
+                            type: string
+                          type:
+                            type: string
+                          deadline:
+                            type: string
+                          action:
+                            type: string
+                          reward:
+                            type: integer
+                      id:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      deadline:
+                        type: string
+                      action:
+                        type: string
+                      description:
+                        type: string
+                      reward:
+                        type: integer
+                      title:
+                        type: string
+                      type:
+                        type: string
+                      url:
+                        type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      _id: 66b356bcf7f4aaec7f217df9
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '0923473298470'
+                        action: comment
+                        reward: 500
+                      id: eb4909b2-58a4-493d-9c30-dda1d69f423d
+                      createdAt: '1723029180'
+                      updatedAt: '1723029962'
+                      deadline: '2024-08-07T11:25:48.005Z'
+                      action: comment
+                      description: An updated task created to test endpoints
+                      reward: 500
+                      title: Task 1 updated
+                      type: onetime
+                      url: 'https://twitter.com/updatedtweetpath'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      _id: 66b356bcf7f4aaec7f217df9
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '0923473298470'
+                        action: comment
+                        reward: 500
+                      id: eb4909b2-58a4-493d-9c30-dda1d69f423d
+                      createdAt: '1723029180'
+                      updatedAt: '1723029962'
+                      deadline: '2024-08-07T11:25:48.005Z'
+                      action: comment
+                      description: An updated task created to test endpoints
+                      reward: 500
+                      title: Task 1 updated
+                      type: onetime
+                      url: 'https://twitter.com/updatedtweetpath'
+      servers:
+        - url: 'http://localhost:3000'
+    put:
+      tags:
+        - Task
+      summary: Update Task
+      description: 'Update a Task '
+      operationId: put-task-id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                url:
+                  type: string
+                type:
+                  type: string
+                deadline:
+                  type: string
+                action:
+                  type: string
+                reward:
+                  type: integer
+              x-examples:
+                Example 1:
+                  title: Task 1 updated
+                  description: An updated task created to test endpoints
+                  url: 'https://twitter.com/updatedtweetpath'
+                  type: onetime
+                  deadline: '2024-08-07T11:25:48.005Z'
+                  action: comment
+                  reward: 500
+            examples:
+              Example 1:
+                value:
+                  title: Task 1 updated
+                  description: An updated task created to test endpoints
+                  url: 'https://twitter.com/updatedtweetpath'
+                  type: onetime
+                  deadline: '2024-08-07T11:25:48.005Z'
+                  action: comment
+                  reward: 500
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      data:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                          description:
+                            type: string
+                          url:
+                            type: string
+                          type:
+                            type: string
+                          deadline:
+                            type: string
+                          action:
+                            type: string
+                          reward:
+                            type: integer
+                      id:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      deadline:
+                        type: string
+                      action:
+                        type: string
+                      description:
+                        type: string
+                      reward:
+                        type: integer
+                      title:
+                        type: string
+                      type:
+                        type: string
+                      url:
+                        type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      _id: 66b389ec960ed3958c9b3aaf
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '2024-08-04T09:20:08-04:00'
+                        action: comment
+                        reward: 500
+                      id: 60e20581-c116-458e-9e1f-b738c5a0dd22
+                      createdAt: '1723042284'
+                      updatedAt: '1723042393'
+                      deadline: '2024-08-07T11:25:48.005Z'
+                      action: comment
+                      description: An updated task created to test endpoints
+                      reward: 500
+                      title: Task 1 updated
+                      type: onetime
+                      url: 'https://twitter.com/updatedtweetpath'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      _id: 66b389ec960ed3958c9b3aaf
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '2024-08-04T09:20:08-04:00'
+                        action: comment
+                        reward: 500
+                      id: 60e20581-c116-458e-9e1f-b738c5a0dd22
+                      createdAt: '1723042284'
+                      updatedAt: '1723042393'
+                      deadline: '2024-08-07T11:25:48.005Z'
+                      action: comment
+                      description: An updated task created to test endpoints
+                      reward: 500
+                      title: Task 1 updated
+                      type: onetime
+                      url: 'https://twitter.com/updatedtweetpath'
+      servers:
+        - url: 'http://localhost:3000'
+    delete:
+      tags:
+        - Task
+      summary: Delete Task
+      description: Delete a Task
+      operationId: delete-task-id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                x-examples:
+                  Example 1:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: Task deleted successfully
+                    data: {}
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: Task deleted successfully
+                    data: {}
+      servers:
+        - url: 'http://localhost:3000'
+  /task/create:
+    post:
+      tags:
+        - Task
+      summary: Create New Task
+      description: Create a new Task
+      operationId: post-task-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    url:
+                      type: string
+                    type:
+                      type: string
+                    deadline:
+                      type: string
+                    action:
+                      type: string
+                    reward:
+                      type: integer
+                  required:
+                    - title
+                    - description
+                    - url
+                    - type
+                    - deadline
+                    - action
+                    - reward
+              required:
+                - data
+              x-examples:
+                Example 1:
+                  data:
+                    title: Task 1
+                    description: A new task created to test endpoints
+                    url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                    type: onetime
+                    deadline: '0923473298470'
+                    action: comment
+                    reward: 500
+            examples:
+              Example 1:
+                value:
+                  data:
+                    title: Task 1
+                    description: A new task created to test endpoints
+                    url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                    type: onetime
+                    deadline: '0923473298470'
+                    action: comment
+                    reward: 500
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          title:
+                            type: string
+                          description:
+                            type: string
+                          url:
+                            type: string
+                          type:
+                            type: string
+                          deadline:
+                            type: string
+                          action:
+                            type: string
+                          reward:
+                            type: integer
+                      id:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      _id:
+                        type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 201
+                    statusMessage: Created
+                    message: Task created successfully
+                    data:
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '2024-08-04T09:20:08-04:00'
+                        action: comment
+                        reward: 500
+                      id: d974d015-b6a0-4e42-8992-a76dbcf7e361
+                      createdAt: '1723040483'
+                      updatedAt: '1723040483'
+                      _id: 66b382e3960ed3958c9b3aad
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 201
+                    statusMessage: Created
+                    message: Task created successfully
+                    data:
+                      data:
+                        title: Task 1
+                        description: A new task created to test endpoints
+                        url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                        type: onetime
+                        deadline: '2024-08-04T09:20:08-04:00'
+                        action: comment
+                        reward: 500
+                      id: d974d015-b6a0-4e42-8992-a76dbcf7e361
+                      createdAt: '1723040483'
+                      updatedAt: '1723040483'
+                      _id: 66b382e3960ed3958c9b3aad
+      servers:
+        - url: 'http://localhost:3000'
+  /tasks:
+    get:
+      tags:
+        - Task
+      summary: Get All Tasks
+      description: Get All Tasks
+      operationId: get-tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  statusMessage:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            title:
+                              type: string
+                            description:
+                              type: string
+                            url:
+                              type: string
+                            type:
+                              type: string
+                            deadline:
+                              type: string
+                            action:
+                              type: string
+                            reward:
+                              type: integer
+                        id:
+                          type: string
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        deadline:
+                          type: string
+                        action:
+                          type: string
+                        description:
+                          type: string
+                        reward:
+                          type: integer
+                        title:
+                          type: string
+                        type:
+                          type: string
+                        url:
+                          type: string
+                x-examples:
+                  Example 1:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      - _id: 66b356bcf7f4aaec7f217df9
+                        data:
+                          title: Task 1
+                          description: A new task created to test endpoints
+                          url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                          type: onetime
+                          deadline: '0923473298470'
+                          action: comment
+                          reward: 500
+                        id: eb4909b2-58a4-493d-9c30-dda1d69f423d
+                        createdAt: '1723029180'
+                        updatedAt: '1723037767'
+                        deadline: '2024-08-07T11:25:48.005Z'
+                        action: comment
+                        description: An updated task created to test endpoints
+                        reward: 500
+                        title: Task 1 updated
+                        type: onetime
+                        url: 'https://twitter.com/updatedtweetpath'
+                      - _id: 66b389ec960ed3958c9b3aaf
+                        data:
+                          title: Task 1
+                          description: A new task created to test endpoints
+                          url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                          type: onetime
+                          deadline: '2024-08-04T09:20:08-04:00'
+                          action: comment
+                          reward: 500
+                        id: 60e20581-c116-458e-9e1f-b738c5a0dd22
+                        createdAt: '1723042284'
+                        updatedAt: '1723042393'
+                        deadline: '2024-08-07T11:25:48.005Z'
+                        action: comment
+                        description: An updated task created to test endpoints
+                        reward: 500
+                        title: Task 1 updated
+                        type: onetime
+                        url: 'https://twitter.com/updatedtweetpath'
+              examples:
+                Example 1:
+                  value:
+                    statusCode: 200
+                    statusMessage: OK
+                    message: ''
+                    data:
+                      - _id: 66b356bcf7f4aaec7f217df9
+                        data:
+                          title: Task 1
+                          description: A new task created to test endpoints
+                          url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                          type: onetime
+                          deadline: '0923473298470'
+                          action: comment
+                          reward: 500
+                        id: eb4909b2-58a4-493d-9c30-dda1d69f423d
+                        createdAt: '1723029180'
+                        updatedAt: '1723037767'
+                        deadline: '2024-08-07T11:25:48.005Z'
+                        action: comment
+                        description: An updated task created to test endpoints
+                        reward: 500
+                        title: Task 1 updated
+                        type: onetime
+                        url: 'https://twitter.com/updatedtweetpath'
+                      - _id: 66b389ec960ed3958c9b3aaf
+                        data:
+                          title: Task 1
+                          description: A new task created to test endpoints
+                          url: 'https://twitter.com/sjfldsjfsdjfldsjfd'
+                          type: onetime
+                          deadline: '2024-08-04T09:20:08-04:00'
+                          action: comment
+                          reward: 500
+                        id: 60e20581-c116-458e-9e1f-b738c5a0dd22
+                        createdAt: '1723042284'
+                        updatedAt: '1723042393'
+                        deadline: '2024-08-07T11:25:48.005Z'
+                        action: comment
+                        description: An updated task created to test endpoints
+                        reward: 500
+                        title: Task 1 updated
+                        type: onetime
+                        url: 'https://twitter.com/updatedtweetpath'
+      servers:
+        - url: 'http://localhost:3000'
+tags:
+  - name: Task
+    description: All operations on task

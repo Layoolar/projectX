@@ -1,0 +1,6 @@
+./src/api/controllers/UserTaskController.ts
+./src/application/repoimpls/UserTaskRepoImpl.ts
+./src/application/services/VerificationService.ts
+./src/domain/repositories/UserTaskRepository.ts
+./src/infrastructure/Queue/Queue.ts
+./src/infrastructure/Scheduler/TaskCronJob.ts

@@ -1,0 +1,62 @@
+.
+|-- src
+|   |-- api
+|   |   |-- controllers
+|   |   |   |-- AuthController.ts
+|   |   |   `-- index.ts
+|   |   |-- middlewares
+|   |   |   |-- index.ts
+|   |   |   `-- LoggingMiddleware.ts
+|   |   `-- routes
+|   |       |-- AuthRouter.ts
+|   |       `-- index.ts
+|   |-- application
+|   |   |-- dtos
+|   |   |   `-- index.ts
+|   |   |-- services
+|   |   |   |-- AuthService.ts
+|   |   |   `-- index.ts
+|   |   `-- usecases
+|   |       `-- index.ts
+|   |-- domain
+|   |   |-- models
+|   |   |   |-- index.ts
+|   |   |   `-- User.ts
+|   |   |-- repositories
+|   |   |   |-- index.ts
+|   |   |   |-- TwitterAPIRepository.ts
+|   |   |   `-- UserRepository.ts
+|   |   `-- services
+|   |       `-- index.ts
+|   |-- infrastructure
+|   |   |-- database
+|   |   |   |-- index.ts
+|   |   |   `-- MongoDB.ts
+|   |   |-- external
+|   |   |   `-- index.ts
+|   |   |-- twitter
+|   |   |   |-- index.ts
+|   |   |   `-- TwitterRepoImpl.ts
+|   |   `-- index.ts
+|   |-- main
+|   |   |-- config.ts
+|   |   |-- constants.ts
+|   |   `-- server.ts
+|   |-- types
+|   `-- utils
+|       |-- index.ts
+|       |-- Request.ts
+|       `-- Response.ts
+|-- tests
+|   `-- example.test.ts
+|-- dir_structure.md
+|-- dir_structure.txt
+|-- eslint.config.mjs
+|-- jest.config.js
+|-- nodemon.json
+|-- package.json
+|-- package-lock.json
+|-- README.md
+`-- tsconfig.json
+
+22 directories, 38 files
