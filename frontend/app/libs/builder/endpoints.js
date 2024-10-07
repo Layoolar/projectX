@@ -39,4 +39,4 @@ export const ENDPOINTS = Object.freeze({
 });
 
 export const BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_BASE_URL ?? "https://api.dmarqt.xyz/api";
+  process.env.NEXT_PUBLIC_BACKEND_BASE_URL ?? "http://13.60.81.209:3000";
