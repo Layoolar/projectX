@@ -1,19 +1,20 @@
 import { UserTask, UserTaskStatus } from '@domain/models';
 import { TwitterService } from '@infrastructure/twitter/TwitterService';
-import { extractId, makeTwitterRequestWithTokenRefresh, verifyRetweet, verifyTweetLike, verifyUserFollow } from '@utils/twitterapi';
+import CONFIG from '@main/config';
 import { getCurrentTimeStamp } from '@utils/utilsCommon';
 import { CustomError } from 'application/errors';
-import { taskDBRepo, TaskRepositoryImpl, userDBRepo, UserRepositoryImpl, userTaskDBRepo, UserTaskRepositoryImpl } from 'application/repoimpls';
+import { taskDBRepo, userDBRepo, userTaskDBRepo } from 'application/repoimpls';
 import { StatusCodes } from 'http-status-codes';
 import cron from 'node-cron';
+import { ApiResponseError, TwitterApi } from 'twitter-api-v2';
 
 const taskThreshold = 0;
 
-const actionMap: { [key: string]: (tweetId: string) => Promise<string[]> } = {
-    like: (tweetId: string) => new TwitterService().getTweetLikes(tweetId),
-    follow: (tweetId: string) => new TwitterService().getFollowers(tweetId),
-    comment: (tweetId: string) => new TwitterService().getTweetComments(tweetId),
-    retweet: (tweetId: string) => new TwitterService().getTweetRetweets(tweetId),
+const actionMap: { [key: string]: (client: TwitterApi, tweetUrl: string) => Promise<string[]> } = {
+    like: (client, tweetUrl: string) => new TwitterService(client).getTweetLikes(tweetUrl),
+    follow: (client, tweetUrl: string) => new TwitterService(client).getFollowers(tweetUrl),
+    comment: (client, tweetUrl: string) => new TwitterService(client).getTweetComments(tweetUrl),
+    retweet: (client, tweetUrl: string) => new TwitterService(client).getTweetRetweets(tweetUrl),
 };
 
 export const scheduleTaskProcessing = () => {
@@ -38,7 +39,7 @@ export const scheduleTaskProcessing = () => {
 }
 
 async function processUserTasksForAction(
-	userTasks: UserTask[], userIds: string[], userDBRepo: UserRepositoryImpl,
+	userTasks: UserTask[], userIds: string[],
 ) {
     return Promise.all(
 	userTasks.map(async (userTask) => {
@@ -68,30 +69,79 @@ async function processTasks() {
 	        const task = await taskDBRepo.getTask(taskId);
 	        if (!task) throw new CustomError('Task not found', StatusCodes.NOT_FOUND);
 
-		const taskTweetId = extractId(task.url);
-	        if (!taskTweetId) throw new CustomError(
-			'Unable to extract id from task', StatusCodes.BAD_REQUEST
-		);
-
 	        const userTasksWithThisTaskId = userTasksToProcess.filter(
 	            userTask => userTask.taskId === taskId
 	        );
 		const actionVerifier = actionMap[task.action.toLowerCase()];
 	        
 		if (actionVerifier) {
-	            const userIds = await actionVerifier(taskTweetId);
-		    const validUserTasks = await processUserTasksForAction(
-			    userTasksWithThisTaskId, userIds, userDBRepo
-		    );
+                    let user;
+		    let client: TwitterApi | undefined;
+		    let userRefreshToken: string | undefined;
 
-		    validUserTasks
-                        .filter(Boolean)
-                        .forEach((validTask) => {
-                            if (validTask) {
-                                userTasksToUpdate.push(validTask);
-                            }
-                        });
-	        }
+		    for (const userTask of userTasksWithThisTaskId) {
+		        try {
+		            user = await userDBRepo.getUserById(userTask.userId);
+		            const userAccessToken = user.twitterOAuth.accessToken;
+		            userRefreshToken = user.twitterOAuth.refreshToken;
+		            client = new TwitterApi(userAccessToken);
+	                    const userIds = await actionVerifier(client, task.url);
+		            const validUserTasks = await processUserTasksForAction(
+			        userTasksWithThisTaskId, userIds);
+		            validUserTasks
+                                .filter(Boolean)
+                                .forEach((validTask) => {
+                                    if (validTask) {
+                                        userTasksToUpdate.push(validTask);
+                                    }
+                                });
+			    break;
+		        } catch (error: any) {
+                            if (error instanceof ApiResponseError && error.rateLimitError) {
+                                console.log('Rate limit error: ', error.rateLimit);
+			        throw error;
+			    } else if (
+			        (error instanceof ApiResponseError && error.isAuthError) ||
+				error.code === 401 ||
+                                error?.data?.code === 401
+			    ){
+			        console.log('Access token expired, trying to refresh token');
+                                try {
+				    const refreshClient = new TwitterApi({
+				        clientId: CONFIG.TWITTER.CLIENT_ID,
+                                        clientSecret: CONFIG.TWITTER.CLIENT_SECRET,
+				    });
+				    const newAuth =
+				        await refreshClient.refreshOAuth2Token(userRefreshToken!);
+				    console.log('New Auth: ', newAuth);
+				    try {
+                                        const userIds = await actionVerifier(
+				            newAuth.client, task.url);
+				        const validUserTasks = await processUserTasksForAction(
+					    userTasksWithThisTaskId, userIds);
+                                        validUserTasks.filter(Boolean).forEach((validTask) => {
+                                            if (validTask) userTasksToUpdate.push(validTask);
+                                        });
+				        break;
+				    } catch (retryError) {
+                                        console.log('Retry request failed:', retryError);
+				        throw retryError;
+				    }
+			        } catch (refreshError) {
+                                    console.log('Token refresh failed:', refreshError);
+				    continue;
+			        }
+			    } else {
+			        console.log('Unhandled error:', error);
+                                throw error;
+			    }
+		        }
+	            }
+		    if (!client) {
+                        console.log('No valid Twitter credentials available for the task');
+                        throw new Error('Unable to process task due to invalid Twitter credentials.');
+		    }
+		}
 	    })
         );
 
