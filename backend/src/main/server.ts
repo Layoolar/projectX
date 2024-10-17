@@ -28,7 +28,7 @@ import { scheduleTaskProcessing } from '@infrastructure/Scheduler/TaskCronJob';
 const app = express();
 
 const corsOptions = {
-    origin: [CONFIG.FRONTEND_URL],
+    origin: [CONFIG.FRONTEND_URL, CONFIG.FRONTEND_URL_W],
     optionsSuccessStatus: 200,
     credentials: true,
 };
@@ -56,7 +56,7 @@ scheduleTaskProcessing();
 const port = CONFIG.PORT || 3000;
 
 app.get('/', (_: Request, res: Response) => {
-    res.send('Hello, Welcome to dmarqt home route!');
+    res.send('Hello, Welcome to dmarketas home route!');
 });
 
 // All routes from here use userMiddleware
