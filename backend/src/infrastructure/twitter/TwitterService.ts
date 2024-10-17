@@ -1,6 +1,8 @@
 import CONFIG from "@main/config";
 import { TwitterApi, TweetV2, TweetSearchRecentV2Paginator, Tweetv2SearchParams } from "twitter-api-v2";
-
+import { extractId, extractUsername } from '@utils/twitterapi'
+import { CustomError } from 'application/errors';
+import { StatusCodes } from 'http-status-codes';
 
 export interface ITwitterService {
     getTweetLikes(tweetId: string): Promise<string[]>,
@@ -12,16 +14,15 @@ export interface ITwitterService {
 export class TwitterService implements ITwitterService {
     private client: TwitterApi;
 
-    constructor() {
-	this.client = new TwitterApi({
-            appKey: CONFIG.TWITTER.APP_KEY!,
-            appSecret: CONFIG.TWITTER.APP_SECRET!,
-            accessToken: CONFIG.TWITTER.ACCESS_TOKEN!,
-            accessSecret: CONFIG.TWITTER.ACCESS_SECRET!,
-	});
+    constructor(client: TwitterApi) {
+	this.client = client;
     }
 
-    async getTweetLikes(tweetId: string): Promise<string[]> {
+    async getTweetLikes(tweetUrl: string): Promise<string[]> {
+	const tweetId = extractId(tweetUrl);
+	if (!tweetId) {
+            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+	}
         let userIds: string[] = [];
         const usersPaginated = await this.client.v2.tweetLikedBy(
 	    tweetId, { asPaginator: true }
@@ -32,8 +33,12 @@ export class TwitterService implements ITwitterService {
 	return userIds;
     }
 
-    async getTweetRetweets(tweetId: string): Promise<string[]> {
-        let userIds: string[] = [];
+    async getTweetRetweets(tweetUrl: string): Promise<string[]> {
+	const tweetId = extractId(tweetUrl);
+	if (!tweetId) {
+            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+	}
+	let userIds: string[] = [];
         const usersPaginated = await this.client.v2.tweetRetweetedBy(
 	    tweetId, { asPaginator: true }
 	);
@@ -43,10 +48,16 @@ export class TwitterService implements ITwitterService {
 	return userIds;
     }
 
-    async getFollowers(tweetId: string): Promise<string[]> {
+    async getFollowers(tweetUrl: string): Promise<string[]> {
+	const username = extractUsername(tweetUrl);
+	if (!username) {
+            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+	}
+	const user = await this.client.v2.userByUsername(username);
+	const userId = user.data.id;
 	let followerIds: string[] = [];
 	const followersAsPaginator = await this.client.v2.followers(
-	    tweetId, { asPaginator: true }
+	    userId, { asPaginator: true }
         );
 	for await (const follower of followersAsPaginator) {
             followerIds.push(follower.id);
@@ -54,7 +65,11 @@ export class TwitterService implements ITwitterService {
 	return followerIds;
     }
 
-    async getQuotedReplies(tweetId: string): Promise<string[]> { // Comments
+    async getQuotedReplies(tweetUrl: string): Promise<string[]> {
+	const tweetId = extractId(tweetUrl);
+	if (!tweetId) {
+            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+	}
 	let userIds: string[] = [];
         const quotes = await this.client.v2.quotes(
 		tweetId, 
@@ -73,7 +88,11 @@ export class TwitterService implements ITwitterService {
 	return userIds;
     }
 
-    async getTweetComments(tweetId: string): Promise<string[]> {
+    async getTweetComments(tweetUrl: string): Promise<string[]> {
+	const tweetId = extractId(tweetUrl);
+	if (!tweetId) {
+            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+	}
         let nextToken = null;
 	const userIds: string[] = [];
 	do {
