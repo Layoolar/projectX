@@ -18,7 +18,7 @@ const actionMap: { [key: string]: (client: TwitterApi, tweetUrl: string) => Prom
 };
 
 export const scheduleTaskProcessing = () => {
-    cron.schedule('*/5 * * * *', async () => {
+    cron.schedule('*/3 * * * *', async () => {
         console.log('Checking for queued tasks...');
 
 	try {
@@ -63,6 +63,7 @@ async function processTasks() {
 	let userTasksToUpdate: UserTask[] = [];
         const userTasksToProcess = await userTaskDBRepo.fetchQueuedTasks(taskThreshold);
 	const uniqueTaskIds = Array.from(new Set(userTasksToProcess.map(task => task.taskId)));
+	console.log(uniqueTaskIds);
 
         await Promise.all(
             uniqueTaskIds.map(async (taskId) => {
@@ -82,6 +83,7 @@ async function processTasks() {
 		    for (const userTask of userTasksWithThisTaskId) {
 		        try {
 		            user = await userDBRepo.getUserById(userTask.userId);
+			    console.log(user.twitter.username);
 		            const userAccessToken = user.twitterOAuth.accessToken;
 		            userRefreshToken = user.twitterOAuth.refreshToken;
 		            client = new TwitterApi(userAccessToken);
@@ -98,6 +100,13 @@ async function processTasks() {
 			    break;
 		        } catch (error: any) {
                             if (error instanceof ApiResponseError && error.rateLimitError) {
+				const userLimitExceeded =
+				    error.data && error.data.title === 'Too Many Requests';
+				if (userLimitExceeded) {
+                                    console.log('User Limit exceeded, switching user...');
+				    throw error;
+				    continue;
+				}
                                 console.log('Rate limit error: ', error.rateLimit);
 			        throw error;
 			    } else if (
@@ -137,6 +146,8 @@ async function processTasks() {
 			    }
 		        }
 	            }
+		    console.log("ohhh yeahhh, it's all done");
+		    console.log(userTasksToUpdate);
 		    if (!client) {
                         console.log('No valid Twitter credentials available for the task');
                         throw new Error('Unable to process task due to invalid Twitter credentials.');
@@ -147,6 +158,7 @@ async function processTasks() {
 
 	await Promise.all(
             userTasksToUpdate.map(async (userTask) => {
+	        console.log("got here!");
                 const userId = userTask.userId;
                 const task = await taskDBRepo.getTask(userTask.taskId);
                 if (!task) throw new CustomError('Task not found', StatusCodes.NOT_FOUND);
