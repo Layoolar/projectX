@@ -19,6 +19,7 @@ export class TwitterService implements ITwitterService {
     }
 
     async getTweetLikes(tweetUrl: string): Promise<string[]> {
+	console.log("Likes");
 	const tweetId = extractId(tweetUrl);
 	if (!tweetId) {
             throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
@@ -27,6 +28,7 @@ export class TwitterService implements ITwitterService {
         const usersPaginated = await this.client.v2.tweetLikedBy(
 	    tweetId, { asPaginator: true }
 	);
+	console.log("Like worked!")
 	for await (const user of usersPaginated) {
             userIds.push(user.id);
 	}
@@ -34,6 +36,7 @@ export class TwitterService implements ITwitterService {
     }
 
     async getTweetRetweets(tweetUrl: string): Promise<string[]> {
+	console.log("Retweets");
 	const tweetId = extractId(tweetUrl);
 	if (!tweetId) {
             throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
@@ -42,26 +45,40 @@ export class TwitterService implements ITwitterService {
         const usersPaginated = await this.client.v2.tweetRetweetedBy(
 	    tweetId, { asPaginator: true }
 	);
+	console.log("Retweet worked!", usersPaginated);
 	for await (const user of usersPaginated) {
+	    console.log(user);
             userIds.push(user.id);
 	}
 	return userIds;
     }
 
     async getFollowers(tweetUrl: string): Promise<string[]> {
+	console.log("Followers");
 	const username = extractUsername(tweetUrl);
 	if (!username) {
-            throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
+            throw new CustomError('Unable to extract username from task', StatusCodes.BAD_REQUEST);
 	}
 	const user = await this.client.v2.userByUsername(username);
 	const userId = user.data.id;
+	console.log("User worked!", userId);
 	let followerIds: string[] = [];
-	const followersAsPaginator = await this.client.v2.followers(
+	let followersAsPaginator = await this.client.v2.followers(
 	    userId, { asPaginator: true }
         );
-	for await (const follower of followersAsPaginator) {
-            followerIds.push(follower.id);
-	}
+	console.log("Followers worked!", followersAsPaginator);
+	do {
+	    if (followersAsPaginator) {
+	        for await (const follower of followersAsPaginator) {
+                    followerIds.push(follower.id);
+	        }
+	    }
+	    if (followersAsPaginator.meta && followersAsPaginator.meta.next_token) {
+                followersAsPaginator = await followersAsPaginator.next();
+            } else {
+		break;
+	    }
+	} while (followersAsPaginator.meta && followersAsPaginator.meta.next_token);
 	return followerIds;
     }
 
@@ -89,6 +106,13 @@ export class TwitterService implements ITwitterService {
     }
 
     async getTweetComments(tweetUrl: string): Promise<string[]> {
+	console.log("Comments");
+	const username = extractUsername(tweetUrl);
+	if (!username) {
+            throw new CustomError('Unable to extract username from task', StatusCodes.BAD_REQUEST);
+	}
+	const user = await this.client.v2.userByUsername(username);
+	const userId = user.data.id;
 	const tweetId = extractId(tweetUrl);
 	if (!tweetId) {
             throw new CustomError('Unable to extract id from task', StatusCodes.BAD_REQUEST);
@@ -105,10 +129,12 @@ export class TwitterService implements ITwitterService {
 	    };
 
 	    const response: TweetSearchRecentV2Paginator = await this.client.v2.search(params);
+	    console.log("Comments Worked!", response);
 
 	    if (response.tweets) {
+		console.log(response.tweets);
 	        response.tweets.forEach((tweet: TweetV2) => {
-		    if (tweet.author_id && tweet.in_reply_to_user_id === tweetId) {
+		    if (tweet.author_id && tweet.in_reply_to_user_id === userId) {
                         userIds.push(tweet.author_id);
 		    }
                 });
