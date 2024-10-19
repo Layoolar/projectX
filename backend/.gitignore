@@ -33,3 +33,7 @@ Thumbs.db
 .vscode
 vscode
 .histfile
+
+# user custom
+.histfile
+**/.histfile

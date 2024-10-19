@@ -16,6 +16,7 @@
     "@mantine/modals": "^7.12.1",
     "@mantine/notifications": "^7.12.1",
     "@tanstack/react-query": "^5.51.24",
+    "@twa-dev/sdk": "^7.10.1",
     "axios": "^1.7.4",
     "cookies-next": "^4.2.1",
     "i": "^0.3.7",
