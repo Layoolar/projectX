@@ -28,7 +28,7 @@ export default function Nav() {
     <nav className={styles.nav}>
       <div>
         <Link href="/" className={styles.left}>
-          <p>Project X</p>
+          <p>Dmarketas</p>
         </Link>
         <div className={styles.center}>
           <a target="#" href="https://x.com/dmarqtxyz">

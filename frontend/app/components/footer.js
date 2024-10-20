@@ -6,7 +6,7 @@ export default function Footer() {
       <div>
         <div className={styles.top}>
           <div>
-            <p>Project X</p>
+            <p>Dmarketas</p>
           </div>
           <div className={styles.social}>
             <a target="#" href="https://x.com/dmarqtxyz">

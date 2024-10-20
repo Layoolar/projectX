@@ -73,7 +73,7 @@ export default function Home() {
           Click
         </button>
         <div>
-          Participate and engage with the Project X community and turn your
+          Participate and engage with the Dmarketas community and turn your
           activity into valuable benefits!
         </div>
 
