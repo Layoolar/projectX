@@ -1,35 +1,35 @@
 .main {
+  display: flex;
+  width: 100vw;
+  align-self: flex-start;
+  flex-grow: 1;
+
+  & > * {
+    min-height: 100px;
+    width: 100%;
+  }
+
+  .left {
+    max-width: 324px;
+    border-right: 2px solid #e0e0e0;
     display: flex;
-    width: 100vw;
-    align-self: flex-start;
-    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 4rem;
 
-    &>* {
-        min-height: 100px;
-        width: 100%;
+    & > button {
+      width: 246px;
+      height: 54px;
+      background: var(--blue);
+      border: none;
+      border-radius: 1000px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
     }
-
-    .left {
-        max-width: 324px;
-        border-right: 2px solid #e0e0e0;
-        display: flex;
-        flex-direction: column;
-        align-items: center ;
-        padding-block: 4rem;
-
-        &> button {
-            width: 246px;
-            height: 54px;
-            background: var(--yellow);
-            border: none;
-            border-radius: 1000px;
-            font-size:  1.3rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-    }
-    .right {
-        padding-inline: 2rem;
-        padding-block: 2rem;
-    }
+  }
+  .right {
+    padding-inline: 2rem;
+    padding-block: 2rem;
+  }
 }

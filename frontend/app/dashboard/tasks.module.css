@@ -1,176 +1,176 @@
 .bottom {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 90%;
-    max-width: 1455px;
-    margin-inline: 87px;
-    margin-top: 74px;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  max-width: 1455px;
+  margin-inline: 87px;
+  margin-top: 74px;
+  margin-left: auto;
+  margin-right: auto;
 
-    &>h2 {
-        font-size: 55px;
-        line-height: 55x;
+  & > h2 {
+    font-size: 55px;
+    line-height: 55x;
+    font-weight: 800;
+    padding-bottom: 10px;
+  }
+
+  .task {
+    margin-block: 30px;
+    width: 100%;
+    background: var(--white);
+    filter: var(--drop-shadow);
+    border-radius: 40px;
+    height: 220px;
+    padding-block: 30px;
+
+    & > * {
+      padding-inline: 60px;
+    }
+
+    .taskTop {
+      /*height: 65px;*/
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--gray);
+      padding-bottom: 20px;
+
+      & > h3 {
+        font-size: 30px;
         font-weight: 800;
-        padding-bottom: 10px;
+      }
+
+      & > button {
+        background: none;
+        border-radius: 12px;
+        height: 45px;
+        width: 180px;
+        border: 3px solid var(--black);
+        /*cursor: pointer;*/
+        font-size: 20px;
+        font-weight: 600;
+      }
     }
 
-    .task {
-        margin-block: 30px;
-        width: 100%;
-        background: var(--white);
-        filter: var(--drop-shadow);
-        border-radius: 40px;
-        height: 220px;
-        padding-block: 30px;
+    .taskBottom {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 35px;
 
-        &>* {
-            padding-inline: 60px;
+      & > h3 {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      & > div > button {
+        background: var(--blue);
+        border-radius: 1000px;
+        height: 50px;
+        width: 180px;
+        border: none;
+        /*cursor: pointer;*/
+        font-size: 20px;
+        font-weight: 600;
+
+        &:disabled {
+          background: gray;
+          /*cursor: not-allowed;*/
+          color: white;
         }
-
-        .taskTop {
-            /*height: 65px;*/
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid var(--gray);
-            padding-bottom: 20px;
-
-            &>h3 {
-                font-size: 30px;
-                font-weight: 800;
-            }
-
-            &>button {
-                background: none;
-                border-radius: 12px;
-                height: 45px;
-                width: 180px;
-                border: 3px solid var(--black);
-                /*cursor: pointer;*/
-                font-size: 20px;
-                font-weight: 600;
-            }
-        }
-
-        .taskBottom {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-top: 35px;
-
-            &>h3 {
-                font-size: 20px;
-                font-weight: 500;
-            }
-
-            &>div>button {
-                background: var(--yellow);
-                border-radius: 1000px;
-                height: 50px;
-                width: 180px;
-                border: none;
-                /*cursor: pointer;*/
-                font-size: 20px;
-                font-weight: 600;
-
-                &:disabled {
-                    background: gray;
-                    /*cursor: not-allowed;*/
-                    color: white;
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 @media screen and (max-width: 950px) {
-    .bottom {
-        &>h2 {
-            font-size: 40px;
-            line-height: 40px;
-        }
+  .bottom {
+    & > h2 {
+      font-size: 40px;
+      line-height: 40px;
     }
+  }
 }
 
 @media screen and (max-width: 870px) {
-    .task {
-        &>* {
-            padding-inline: 30px !important;
-        }
+  .task {
+    & > * {
+      padding-inline: 30px !important;
+    }
+  }
+
+  .taskTop {
+    & > h3 {
+      font-size: 25px !important;
     }
 
-    .taskTop {
-        &>h3 {
-            font-size: 25px !important;
-        }
+    & > button {
+      width: 300px !important;
+      font-size: 18px !important;
+    }
+  }
 
-        &>button {
-            width: 300px !important;
-            font-size: 18px !important;
-        }
+  .taskBottom {
+    & > h3 {
+      font-size: 18px !important;
     }
 
-    .taskBottom {
-        &>h3 {
-            font-size: 18px !important;
-        }
-
-        &>div>button {
-            width: 150px !important;
-            font-size: 18px !important;
-        }
+    & > div > button {
+      width: 150px !important;
+      font-size: 18px !important;
     }
+  }
 }
 
 @media screen and (max-width: 750px) {
-    .bottom {
-        max-width: 90vw;
-        padding-inline: 0px !important;
-    }
+  .bottom {
+    max-width: 90vw;
+    padding-inline: 0px !important;
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .bottom {
-        &>h2 {
-            font-size: 27px;
-            text-align: center;
-            line-height: 30px;
-        }
+  .bottom {
+    & > h2 {
+      font-size: 27px;
+      text-align: center;
+      line-height: 30px;
+    }
+  }
+
+  .task {
+    height: fit-content !important;
+  }
+
+  .taskTop {
+    & > h3 {
+      font-size: 20px !important;
     }
 
-    .task {
-        height: fit-content !important;
+    & > button {
+      width: 200px !important;
+      font-size: 13px !important;
+    }
+  }
+
+  .taskBottom {
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-top: 15px !important;
+
+    & > h3 {
+      font-size: 25px !important;
+      text-align: center;
     }
 
-    .taskTop {
-        &>h3 {
-            font-size: 20px !important;
-        }
-
-        &>button {
-            width: 200px !important;
-            font-size: 13px !important;
-        }
+    & > div > button {
+      width: 220px !important;
+      font-size: 20px !important;
+      line-height: 22px !important;
     }
-
-    .taskBottom {
-        flex-direction: column;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 10px !important;
-        margin-top: 15px !important;
-
-        &>h3 {
-            font-size: 25px !important;
-            text-align: center;
-        }
-
-        &>div>button {
-            width: 220px !important;
-            font-size: 20px !important;
-            line-height: 22px !important;
-        }
-    }
+  }
 }

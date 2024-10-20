@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/nav";
 import Footer from "./components/footer";
-import Cursor from "./components/cursor";
+// import Cursor from "./components/cursor";
 import { DataContextProvider } from "./context/DataContext";
 import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -14,11 +14,11 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { ColorSchemeScript } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import WebApp from "@twa-dev/sdk";
+// import WebApp from "@twa-dev/sdk";
 
 const inter = Inter({ subsets: ["latin"] });
 
-WebApp.ready();
+// WebApp.ready();
 export default function RootLayout({ children }) {
   const [queryClient] = useState(
     () =>
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
             staleTime: 480_000,
           },
         },
-      }),
+      })
   );
   return (
     <html lang="en">
@@ -60,7 +60,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" type="image/x-icon" href="./favicon.png" />
       </head>
       <body className={inter.className}>
-        <Cursor />
+        {/* <Cursor /> */}
         <MantineProvider withCssVariables>
           <ColorSchemeScript defaultColorScheme="light" />
           <QueryClientProvider client={queryClient}>

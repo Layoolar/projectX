@@ -52,7 +52,7 @@
 
         &:hover {
           color: var(--blue);
-          /*border-bottom: 1px solid var(--yellow);*/
+          /*border-bottom: 1px solid var(--blue);*/
         }
       }
     }

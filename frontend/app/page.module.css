@@ -33,7 +33,7 @@
     url("/extras/mainBg.png");
   background-repeat: no-repeat;
   background-size: 900px;
-  background-position: 50% 28vh;
+  background-position: 50% 43vh;
   /* padding-top: 5rem; */
 
   display: flex;
@@ -129,18 +129,18 @@
       background: none;
       font-size: 30px;
       color: var(--dark-gray);
-      border: 2px solid var(--yellow) !important;
+      border: 2px solid var(--blue) !important;
 
       &:focus,
       &:hover,
       &:active {
-        border: 3px solid var(--yellow) !important;
+        border: 3px solid var(--blue) !important;
       }
     }
 
     & > label {
       align-self: flex-start;
-      color: var(--yellow);
+      color: var(--blue);
       margin-bottom: 1rem;
     }
 
@@ -277,7 +277,7 @@
       justify-content: center;
       gap: 1rem;
       border: none;
-      background: #3aa4d9; /*background: var(--yellow);*/
+      background: #3aa4d9; /*background: var(--blue);*/
       width: 250px;
       height: 44px;
       border-radius: 1000px;

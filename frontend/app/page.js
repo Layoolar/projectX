@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { handleSuccess, handleError } from "./libs/utils";
 import { Loader } from "@mantine/core";
 import Cookies from "js-cookie";
-import WebApp from "@twa-dev/sdk";
+// import WebApp from "@twa-dev/sdk";
 
 export default function Home() {
   const search = useSearchParams();
@@ -58,7 +58,7 @@ export default function Home() {
             handleError(error);
             Cookies.remove("authTokenized");
           },
-        },
+        }
       );
     }
   }, [search, router, confirmLoginAttempt]);
@@ -69,9 +69,9 @@ export default function Home() {
         <h1>
           Let's get started <span>unlocking </span> your rewards
         </h1>
-        <button onClick={() => WebApp.showAlert("You just clicked")}>
+        {/* <button onClick={() => WebApp.showAlert("You just clicked")}>
           Click
-        </button>
+        </button> */}
         <div>
           Participate and engage with the Dmarketas community and turn your
           activity into valuable benefits!
@@ -123,7 +123,7 @@ const JoinNow = ({ referralCode, setReferralCode }) => {
         onSuccess: () => {
           router.replace("/dashboard"); // Navigate to the dashboard on success
         },
-      },
+      }
     );
   };
 
