@@ -247,6 +247,7 @@
     background-repeat: no-repeat;
     background-size: 70vw;
     background-position: 50% 39vh;
+    overflow-y: scroll;
 
     .br {
       display: none;
