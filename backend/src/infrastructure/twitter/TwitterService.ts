@@ -130,11 +130,17 @@ export class TwitterService implements ITwitterService {
 
 	    const response: TweetSearchRecentV2Paginator = await this.client.v2.search(params);
 	    console.log("Comments Worked!", response);
+	    const mainTweetResponse = await this.client.v2.singleTweet(tweetId, {
+                'tweet.fields': ['text', 'author_id', 'created_at']
+	    });
+	    const mainTweet: TweetV2 = mainTweetResponse.data;
 
 	    if (response.tweets) {
 		console.log(response.tweets);
 	        response.tweets.forEach((tweet: TweetV2) => {
-		    if (tweet.author_id && tweet.in_reply_to_user_id === userId) {
+		    if (tweet.author_id &&
+			tweet.in_reply_to_user_id === userId &&
+			this.confirmHashtags(tweet.text, mainTweet.text)) {
                         userIds.push(tweet.author_id);
 		    }
                 });
@@ -142,5 +148,10 @@ export class TwitterService implements ITwitterService {
 	    nextToken = response.meta.next_token;
 	} while (nextToken);
 	return userIds;
+    }
+
+    confirmHashtags(userTweet: string, mainTweetText: string): boolean {
+        const hashtags: string[] = mainTweetText.match(/#\w+/g) || [];
+        return hashtags.every(str => userTweet.includes(str));
     }
 }
